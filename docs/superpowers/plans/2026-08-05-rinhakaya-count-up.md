@@ -146,6 +146,7 @@ Create `index.html`. The `<span id="count">` starts empty and is filled by the s
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>賀陽燐羽実装待機</title>
+    <link rel="modulepreload" href="./day.js" />
     <style>
       :root {
         --bg: #fafafa;
@@ -164,6 +165,7 @@ Create `index.html`. The `<span id="count">` starts empty and is filled by the s
       * {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
       }
 
       html,
@@ -201,6 +203,9 @@ Create `index.html`. The `<span id="count">` starts empty and is filled by the s
         /* Tabular figures keep the number from shifting width as the count grows. */
         font-variant-numeric: tabular-nums;
         margin: 0.32em 0 0.38em;
+        /* Hidden until render() fills the number, so the line reserves its space
+           instead of flashing a bare "Day" during the module fetch. */
+        visibility: hidden;
       }
 
       .subtitle {
@@ -227,6 +232,7 @@ Create `index.html`. The `<span id="count">` starts empty and is filled by the s
 
       function render() {
         el.textContent = String(dayNumber(Date.now()));
+        el.parentElement.style.visibility = 'visible';
       }
 
       render();
@@ -243,7 +249,7 @@ ES modules are blocked by the browser's CORS policy over `file://`, so serve the
 directory rather than opening the file directly:
 
 ```bash
-python3 -m http.server 8000
+python -m http.server 8000
 ```
 
 Open `http://localhost:8000/`. Expected: the header `賀陽燐羽実装待機`, a large

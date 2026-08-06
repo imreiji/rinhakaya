@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>賀陽燐羽実装待機</title>
+    <link rel="modulepreload" href="./day.js" />
     <style>
       :root {
         --bg: #fafafa;
@@ -22,6 +23,7 @@
       * {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
       }
 
       html,
@@ -59,6 +61,9 @@
         /* Tabular figures keep the number from shifting width as the count grows. */
         font-variant-numeric: tabular-nums;
         margin: 0.32em 0 0.38em;
+        /* Hidden until render() fills the number, so the line reserves its space
+           instead of flashing a bare "Day" during the module fetch. */
+        visibility: hidden;
       }
 
       .subtitle {
@@ -85,6 +90,7 @@
 
       function render() {
         el.textContent = String(dayNumber(Date.now()));
+        el.parentElement.style.visibility = 'visible';
       }
 
       render();
