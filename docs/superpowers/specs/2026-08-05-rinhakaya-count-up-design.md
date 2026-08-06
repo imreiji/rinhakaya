@@ -76,6 +76,7 @@ No build step and no dependencies. GitHub Pages serves the repository root direc
 | `day.js`     | The day calculation, as one exported pure function.         |
 | `test.js`    | Assertions over `day.js`. Run with `node test.js`.          |
 | `CNAME`      | Contains `rinhakaya.com` for the GitHub Pages custom domain.|
+| `package.json` | Declares `"type": "module"` so `node` treats `.js` as ES modules when running the test. No dependencies. |
 
 `day.js` exports a function taking the current instant as an argument rather than reading
 the clock itself, so tests can pin time without mocking globals.
