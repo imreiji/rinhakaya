@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>賀陽燐羽実装待機</title>
+    <style>
+      :root {
+        --bg: #fafafa;
+        --fg: #111111;
+        --muted: #8a8a8a;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0e0e0e;
+          --fg: #f2f2f2;
+          --muted: #767676;
+        }
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic',
+          'Meiryo', system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-align: center;
+        padding: 1.5rem;
+      }
+
+      .header {
+        font-size: clamp(0.95rem, 3.5vw, 1.2rem);
+        font-weight: 500;
+        letter-spacing: 0.35em;
+        /* letter-spacing adds trailing space after the last character; pull it back so
+           the line stays optically centered. */
+        text-indent: 0.35em;
+      }
+
+      .count {
+        font-size: clamp(4rem, 22vw, 10rem);
+        font-weight: 600;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        /* Tabular figures keep the number from shifting width as the count grows. */
+        font-variant-numeric: tabular-nums;
+        margin: 0.32em 0 0.38em;
+      }
+
+      .subtitle {
+        font-size: clamp(0.75rem, 2.8vw, 0.875rem);
+        line-height: 1.9;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1 class="header">賀陽燐羽実装待機</h1>
+      <p class="count">Day <span id="count"></span></p>
+      <p class="subtitle">
+        学園アイドルマスター The 2nd Period<br />
+        2026.06.06
+      </p>
+    </main>
+
+    <script type="module">
+      import { dayNumber } from './day.js';
+
+      const el = document.getElementById('count');
+
+      function render() {
+        el.textContent = String(dayNumber(Date.now()));
+      }
+
+      render();
+      // Re-check every minute so a page left open overnight rolls over on its own.
+      setInterval(render, 60_000);
+    </script>
+  </body>
+</html>
